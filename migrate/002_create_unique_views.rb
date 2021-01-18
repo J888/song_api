@@ -4,7 +4,7 @@ Sequel.migration do
       primary_key :id
       foreign_key :song_id, :songs, type: Fixnum
       Fixnum :user_id, null: false, unique: true
-      DateTime :date, null: false
+      DateTime :date, null: false, default: DateTime.now
     end
   end
 

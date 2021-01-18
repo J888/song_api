@@ -11,18 +11,21 @@ class Song < Sequel::Model
     def all_with_full_info
       all.map do |song|
         song[:tags] = song.tags
+        song[:genres] = song.genres
         ratings = Rating.where(song_id: song.id)
-
+        
         sum_of_ratings = ratings.map { |r| r[:value] }.sum
+  
         calculated_rating = if ratings.count > 0
-                              sum_of_ratings / ratings.count
+                              sum_of_ratings.to_f / ratings.count.to_f
                             else
                               nil
                             end
+        song_hash = JSON.parse(song.to_json)
 
-        song[:rating] = calculated_rating
-
-        song
+        song_hash[:rating] = calculated_rating
+        song_hash
+        
       end
     end
   end

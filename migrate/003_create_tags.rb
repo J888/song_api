@@ -3,8 +3,7 @@ Sequel.migration do
     create_table(:tags) do
       primary_key :id
       String :value, null: false, unique: true
-      DateTime :created_at, null: false
-      FalseClass :is_primary_genre, default: false
+      DateTime :created_at, null: false, default: DateTime.now
     end
   end
 

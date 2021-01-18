@@ -1,0 +1,102 @@
+---
+
+users:
+  - username: ledzep10
+    display_name: Led Zep 10
+    email: ledzep10@testmail.com
+  - username: hollywood007
+    display_name: James Bond
+    email: hollywood007@testmail.com
+  - username: mrrobot1001
+    display_name: MR Robot
+    email: mrrobot1001@testmail.com
+  - username: starwarslover
+    display_name: Darth Vader
+    email: starwarslover@testmail.com
+
+tags:
+  - value: ThisIsAGoodSong
+  - value: NewMusic
+  - value: RisingArtist
+  - value: AvailableOnSpotify
+  - value: SongsOfTikTok
+  - value: StreamOnInstagram
+
+songs:
+  - title: Blinding Lights
+    artist: The Weeknd
+    description: An upbeat song
+    image_url: https://upload.wikimedia.org/wikipedia/en/e/e6/The_Weeknd_-_Blinding_Lights.png
+    created_by_user_id: 1
+  - title: Therefore I am
+    artist: Billie Eilish
+    description: A sad song
+    image_url: https://images-na.ssl-images-amazon.com/images/I/717LcTxmqLL._AC_UL200_SR200,200_.jpg
+    created_by_user_id: 1
+  - title: What You Know Bout Love
+    artist: Pop Smoke
+    description: A dark song
+    image_url: https://images-na.ssl-images-amazon.com/images/I/61v3LCkWMvL._AC_UL200_SR200,200_.jpg
+    created_by_user_id: 1
+  - title: Midnight Sky
+    artist: Miley Cyrus
+    description: A colorful pop song
+    image_url: https://images-na.ssl-images-amazon.com/images/I/81IgVYT1G8L._AC_UL200_SR200,200_.jpg
+    created_by_user_id: 1
+  - title: Stressed Out
+    artist: twenty one pilots
+    description: A pop alt song
+    image_url: https://images-na.ssl-images-amazon.com/images/I/71k-5WHYB9L._AC_UL200_SR200,200_.jpg
+    created_by_user_id: 1
+    
+ratings:
+  # song 1
+  - user_id: 1
+    song_id: 1
+    value: 4.0
+  - user_id: 2
+    song_id: 1
+    value: 5.0
+  - user_id: 3
+    song_id: 1
+    value: 5.0
+  - user_id: 4
+    song_id: 1
+    value: 3.0
+  # song 2
+  - user_id: 1
+    song_id: 2
+    value: 5.0
+  - user_id: 2
+    song_id: 2
+    value: 1.0
+  - user_id: 3
+    song_id: 2
+    value: 1.0
+  - user_id: 4
+    song_id: 2
+    value: 1.0
+  # song 3
+  - user_id: 1
+    song_id: 3
+    value: 1.0
+  - user_id: 2
+    song_id: 3
+    value: 1.0
+  - user_id: 3
+    song_id: 3
+    value: 4.0
+  - user_id: 4
+    song_id: 3
+    value: 4.0
+
+genres: 
+  - name: indie
+  - name: pop
+  - name: rnb
+  - name: rock
+  - name: rap
+  - name: hiphop
+  - name: blues
+  - name: lofi
+

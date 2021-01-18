@@ -75,8 +75,7 @@ class AppMain < Roda
         params = r.params
         @tag = Tag.create(
           value: params['value'],
-          created_at: current_date_time,
-          is_primary_genre: params['is_primary_genre'] || false
+          created_at: current_date_time
         )
         @tag
 

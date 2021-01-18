@@ -9,10 +9,9 @@ Sequel.migration do
       String :hook_lyrics
       String :artist_contact
       String :image_url
-      Float :rating
       Fixnum :created_by_user_id, null: false
-      DateTime :created_at, null: false
-      DateTime :updated_at, null: false
+      DateTime :created_at, null: false, default: DateTime.now
+      DateTime :updated_at, null: false, default: DateTime.now
       FalseClass :is_marked_for_delete, default: false
       FalseClass :is_banned, default: false
     end
