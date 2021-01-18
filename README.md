@@ -1,4 +1,4 @@
-An API for creation of users and songs, rating of songs, unique views, and more.
+An API for creation of users and songs, classifying genres, capturing unique views, capturing ratings by users, tagging songs, and more.
 
 ## Stack
 - [roda](https://github.com/jeremyevans/roda)
@@ -28,3 +28,8 @@ Tear down Dev DB
 ```
 rake dev_down
 ```
+
+
+### API
+
+TODO

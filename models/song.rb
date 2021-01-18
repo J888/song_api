@@ -8,25 +8,49 @@ class Song < Sequel::Model
   many_to_many :genres
 
   dataset_module do
+    def with_full_info(id)
+      song = first(id: id)
+      puts song
+      ratings = Rating.where(song_id: song.id)
+      sum_of_ratings = ratings.map { |r| r[:value] }.sum
+      calculated_rating = if ratings.count > 0
+                            sum_of_ratings.to_f / ratings.count.to_f
+                          else
+                            nil
+                          end
+
+      song_hash = JSON.parse(song.to_json)
+      song_hash[:tags] = song.tags.map { |t| t[:value] } 
+      song_hash[:genres] = song.genres.map { |g| g[:name] } 
+      song_hash[:rating] = calculated_rating
+      song_hash[:unique_views] = song.unique_views.count
+      song_hash
+    end
+
     def all_with_full_info
       all.map do |song|
-        song[:tags] = song.tags
-        song[:genres] = song.genres
-        ratings = Rating.where(song_id: song.id)
-        
-        sum_of_ratings = ratings.map { |r| r[:value] }.sum
-  
-        calculated_rating = if ratings.count > 0
-                              sum_of_ratings.to_f / ratings.count.to_f
-                            else
-                              nil
-                            end
-        song_hash = JSON.parse(song.to_json)
-
-        song_hash[:rating] = calculated_rating
-        song_hash
-        
+        with_full_info(song.id)   
       end
+    end
+
+    def all_by_tag(tag_value)
+      tag = Tag.first(value: tag_value)
+      return [] if tag.nil?
+
+      matches = DB[:songs].join(:songs_tags, song_id: :id).where(tag_id: tag.id).all
+      song_ids = matches.map { |match| match[:song_id] }
+
+      song_ids.map { |id| with_full_info(id) }
+    end
+
+    def all_by_genre(genre_name)
+      genre = Genre.first(name: genre_name)
+      return [] if genre.nil?
+
+      matches = DB[:songs].join(:genres_songs, song_id: :id).where(genre_id: genre.id).all
+      song_ids = matches.map { |match| match[:song_id] }
+
+      song_ids.map { |id| with_full_info(id) }
     end
   end
 end

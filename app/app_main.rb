@@ -1,4 +1,14 @@
+require 'rack/cors'
+
 class AppMain < Roda
+  use Rack::Cors, debug: true, logger: Logger.new(STDOUT) do
+    allowed_methods = %i[get post put delete options head]
+    allow do
+      origins 'http://localhost:8080'
+      resource '*', headers: :any, methods: allowed_methods
+    end
+  end
+
   plugin :json, classes: [Array, Hash, Sequel::Model]
   plugin :json_parser
   plugin :all_verbs
@@ -8,7 +18,6 @@ class AppMain < Roda
 
     # GET list all songs
     r.is 'songs' do
-
       r.get do
         Song.all_with_full_info
       end
@@ -34,7 +43,15 @@ class AppMain < Roda
 
     # GET song by id
     r.is 'songs', String, method: :get do |id|
-      Song.first(id: id)
+      Song.with_full_info(id)
+    end
+
+    r.on 'songs_by_tag', String, method: :get do |tag_value|
+      Song.all_by_tag(tag_value)
+    end
+
+    r.on 'songs_by_genre', String, method: :get do |genre_name|
+      Song.all_by_genre(genre_name)
     end
 
     r.on 'unique_views' do

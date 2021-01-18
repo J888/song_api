@@ -41,6 +41,20 @@ task :db_seed do
     )
   end
 
+  users.size.times do |i|
+    # All users view song 1
+    DB[:unique_views].insert(
+      song_id: 1,
+      user_id: i + 1
+    )
+
+    # All users view song 3
+    DB[:unique_views].insert(
+      song_id: 3,
+      user_id: i + 1
+    )
+  end
+
   tags.size.times do |i|
     # generate tags for song 1
     DB[:songs_tags].insert(
