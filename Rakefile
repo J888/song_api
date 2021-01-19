@@ -37,7 +37,8 @@ task :db_seed do
       artist: song['artist'],
       description: song['description'],
       image_url: song['image_url'],
-      created_by_user_id: song['created_by_user_id']
+      created_by_user_id: song['created_by_user_id'],
+      main_play_url: song['main_play_url']
     )
   end
 
@@ -113,6 +114,24 @@ task :db_seed do
     # Genres for song 2
     DB[:genres_songs].insert(
       song_id: 2,
+      genre_id: i +1
+    )
+
+    # Genres for song 3
+    DB[:genres_songs].insert(
+      song_id: 3,
+      genre_id: i +1
+    )
+
+    # Genres for song 4
+    DB[:genres_songs].insert(
+      song_id: 4,
+      genre_id: i +1
+    )
+
+    # Genres for song 5
+    DB[:genres_songs].insert(
+      song_id: 5,
       genre_id: i +1
     )
   end

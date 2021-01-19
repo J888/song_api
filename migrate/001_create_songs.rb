@@ -5,6 +5,7 @@ Sequel.migration do
       String :title, null: false
       String :artist, null: false
       String :description
+      String :main_play_url
       String :where_to_find # e.g. Spotify, Soundcloud, TikTok, Instagram
       String :hook_lyrics
       String :artist_contact
