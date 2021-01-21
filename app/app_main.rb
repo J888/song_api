@@ -17,27 +17,33 @@ class AppMain < Roda
   route do |r|
 
     # GET list all songs
-    r.is 'songs' do
-      r.get do
-        Song.all_with_full_info
+    r.on 'songs' do
+      r.is do
+        r.get do
+          Song.all_with_full_info
+        end
+  
+        r.post do
+          current_date_time = DateTime.now
+          params = r.params
+  
+          @tag = Tag.where(value: 'thetag').first
+  
+          @song = Song.create(
+            title: params['title'],
+            created_by_user_id: params['created_by_user_id'],
+            artist: params['artist'],
+            created_at: current_date_time,
+            updated_at: current_date_time
+          )
+  
+          @song.add_tag(@tag)
+          @song
+        end
       end
 
-      r.post do
-        current_date_time = DateTime.now
-        params = r.params
-
-        @tag = Tag.where(value: 'thetag').first
-
-        @song = Song.create(
-          title: params['title'],
-          created_by_user_id: params['created_by_user_id'],
-          artist: params['artist'],
-          created_at: current_date_time,
-          updated_at: current_date_time
-        )
-
-        @song.add_tag(@tag)
-        @song
+      r.get 'mapped_by_genre' do
+        Song.all_mapped_by_genre
       end
     end
 

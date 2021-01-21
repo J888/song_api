@@ -52,5 +52,33 @@ class Song < Sequel::Model
 
       song_ids.map { |id| with_full_info(id) }
     end
+
+    #
+    #  {
+    #     "genre_name": [songs],
+    #     ...
+    #  }
+    #
+    def all_mapped_by_genre
+      genres = Genre.all
+      genre_ids = genres.map { |g| g[:id] }
+      songs = []
+      genre_ids.each do |genre_id|
+        songs << DB[:songs].join(:genres_songs, song_id: :id).where(genre_id: genre_id).all
+      end
+      
+      songs = songs.flatten
+
+      genre_name_to_songs_map = { }
+      songs.each do |song|
+        genre_id = song[:genre_id]
+        genre_name = genres.find{ |genre| genre[:id] == genre_id }[:name]
+        
+        genre_name_to_songs_map[genre_name] ||= []
+        genre_name_to_songs_map[genre_name] << with_full_info(song[:song_id])
+      end
+
+      genre_name_to_songs_map
+    end
   end
 end
