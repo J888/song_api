@@ -45,11 +45,10 @@ class AppMain < Roda
       r.get 'mapped_by_genre' do
         Song.all_mapped_by_genre
       end
-    end
 
-    # GET song by id
-    r.is 'songs', String, method: :get do |id|
-      Song.with_full_info(id)
+      r.is String, method: :get do |id|
+        Song.with_full_info(id)
+      end
     end
 
     r.on 'songs_by_tag', String, method: :get do |tag_value|
